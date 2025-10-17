@@ -70,19 +70,24 @@ document.addEventListener('DOMContentLoaded', function() {
     let profileImageBase64 = '';
 
     if (profileImageInput) {
+        // Remove required attribute to prevent validation error
+        profileImageInput.removeAttribute('required');
+        
         const preview = document.querySelector('.file-preview');
         profileImageInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
+                    const base64String = e.target.result;
+                    // Store the complete base64 string
+                    profileImageBase64 = base64String;
+                    
                     // Update preview
                     if (preview) {
                         preview.style.display = 'block';
-                        preview.innerHTML = `<img src="${e.target.result}" alt="Profile Preview">`;
+                        preview.innerHTML = `<img src="${base64String}" alt="Profile Preview">`;
                     }
-                    // Store base64 string for registration
-                    profileImageBase64 = e.target.result.split(',')[1]; // Get base64 string without data:image prefix
                 };
                 reader.readAsDataURL(file);
             }
@@ -103,41 +108,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Function to validate and update button states
+    // Enable register button by default
     function updateRegisterButtonStates() {
         if (!registerForm) return;
-
-        const formData = {
-            name: document.getElementById('name')?.value || '',
-            username: document.getElementById('username')?.value || '',
-            email: document.getElementById('email')?.value || '',
-            mobile: document.getElementById('mobile')?.value || '',
-            password: document.getElementById('password')?.value || '',
-            address: document.getElementById('address')?.value || ''
-        };
-
+        
         // Get buttons
         const signInButton = registerForm.querySelector('button[type="submit"]');
         const facebookButton = document.getElementById('facebookLoginBtn');
 
-        // Check if all fields are filled and valid
-        const isFormValid = 
-            formData.name.length >= 2 &&
-            formData.username.length >= 3 &&
-            isValidEmail(formData.email) &&
-            isValidMobile(formData.mobile) &&
-            formData.password.length >= 6 &&
-            formData.address.length > 0;
-
-        // Update button states
+        // Enable buttons by default
         if (signInButton) {
-            signInButton.disabled = !isFormValid;
-            signInButton.classList.toggle('active', isFormValid);
+            signInButton.disabled = false;
+            signInButton.classList.add('active');
         }
 
         if (facebookButton) {
-            facebookButton.disabled = !isFormValid;
-            facebookButton.classList.toggle('active', isFormValid);
+            facebookButton.disabled = false;
+            facebookButton.classList.add('active');
         }
     }
 
@@ -173,12 +160,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             console.log('Form data before validation:', formData); // Debug log
 
-            // Validate form data
-            const errors = validateRegistrationForm(formData);
-            if (errors.length > 0) {
-                showRegistrationError(errors.join('\n'));
-                return;
-            }
+            // Remove validation check
+            console.log('Proceeding with registration:', formData);
 
             // Show loading state
             const submitButton = registerForm.querySelector('button[type="submit"]');
@@ -237,27 +220,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Function to validate register form
+    // Enable register form button
     function validateRegisterForm() {
         if (!registerForm) return;
-        const name = document.getElementById('name');
-        const username = document.getElementById('username');
-        const email = document.getElementById('email');
-        const mobile = document.getElementById('mobile');
-        const password = document.getElementById('password');
-        const address = document.getElementById('address');
         const submitBtn = registerForm.querySelector('.auth-submit-btn');
-        
-        if (name && username && email && mobile && password && address && submitBtn) {
-            const isValid = name.value.trim().length > 0 &&
-                          username.value.trim().length > 0 &&
-                          email.value.trim().length > 0 &&
-                          mobile.value.trim().length > 0 &&
-                          password.value.trim().length > 0 &&
-                          address.value.trim().length > 0;
-            
-            submitBtn.disabled = !isValid;
-            submitBtn.classList.toggle('active', isValid);
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.classList.add('active');
         }
     }
     
@@ -400,47 +369,51 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
-                const formData = new FormData(this);
-                const userData = {};
-                
-                // Convert FormData to object
-                for (let [key, value] of formData.entries()) {
-                    if (key === 'profile_image' && value instanceof File) {
-                        if (value.size > 0) {
-                            userData.profile_image = await new Promise((resolve) => {
-                                const reader = new FileReader();
-                                reader.onload = () => resolve(reader.result);
-                                reader.readAsDataURL(value);
-                            });
-                        }
-                        continue;
-                    }
-                    userData[key] = value;
-                }
+                // Get form data
+                const formData = {
+                    name: document.getElementById('name').value.trim(),
+                    username: document.getElementById('username').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    mobile: document.getElementById('mobile').value.trim(),
+                    password: document.getElementById('password').value,
+                    address: document.getElementById('address').value.trim(),
+                    profile_image: profileImageBase64 || ''
+                };
 
-                const result = await authService.register(userData);
+                console.log('Sending registration data:', formData);
+
+                const result = await authService.register(formData);
+                console.log('Registration result:', result);
+
                 if (result.success) {
-                    window.location.href = 'index.html';
+                    // Show success message
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'success-message';
+                    successMessage.textContent = 'Registration successful! Redirecting...';
+                    registerForm.insertBefore(successMessage, registerForm.firstChild);
+
+                    // Wait for 2 seconds before redirecting
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    // Show error message
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-message';
+                    errorDiv.textContent = result.message || 'Registration failed. Please try again.';
+                    registerForm.insertBefore(errorDiv, registerForm.firstChild);
                 }
             } catch (error) {
                 console.error('Registration error:', error);
+                // Show error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = 'Registration failed. Please try again.';
+                registerForm.insertBefore(errorDiv, registerForm.firstChild);
             } finally {
                 if (submitBtn) {
                     submitBtn.classList.remove('loading');
-                }
-            }
-            if (!validateRegistration(userData)) {
-                return;
-            }
-
-            // Attempt registration
-            if (await authService.register(userData)) {
-                alert('Registration successful! Please log in.');
-                window.location.href = 'login.html';
-            } else {
-                errorDiv.textContent = 'Registration failed. Please try again.';
-                if (!errorDiv.parentNode) {
-                    this.insertBefore(errorDiv, this.firstChild);
+                    submitBtn.textContent = 'Sign Up';
                 }
             }
         });
@@ -448,31 +421,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function validateRegistration(data) {
-    // Username validation
-    if (data.username.length < 3) {
-        alert('Username must be at least 3 characters long');
-        return false;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        alert('Please enter a valid email address');
-        return false;
-    }
-
-    // Mobile validation
-    const mobileRegex = /^\d{10}$/;
-    if (!mobileRegex.test(data.mobile)) {
-        alert('Please enter a valid 10-digit mobile number');
-        return false;
-    }
-
-    // Password validation
-    if (data.password.length < 6) {
-        alert('Password must be at least 6 characters long');
-        return false;
-    }
-
+    // No validation, always return true
     return true;
 }
