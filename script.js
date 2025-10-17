@@ -1,5 +1,5 @@
 // API base URL
-const API_BASE_URL = 'http://localhost:8080/API/Meri_Maa/api.php';
+const API_BASE_URL = 'https://cityride.city/Meri_Maa_API/api.php';
 
 // Function to format date - used for posts and comments
 function formatPostDate(dateString) {
@@ -678,10 +678,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Function to fetch user profile data
     async function fetchUserProfile(userId) {
         try {
-            const response = await fetch('http://localhost:8080/API/Meri_Maa/api.php/users', {
+            const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/users', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
                     user_id: userId
@@ -876,10 +877,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function fetchUserPosts(userId) {
         try {
             console.log('Fetching posts for user:', userId);
-            const response = await fetch('http://localhost:8080/API/Meri_Maa/api.php/get-user-posts', {
+            const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/get-user-posts', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
                     user_id: userId
@@ -1147,7 +1149,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Function to create post
     async function createPost(postData) {
         try {
-            const response = await fetch('http://localhost:8080/API/Meri_Maa/api.php/add-post', {
+            const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/add-post', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1305,7 +1307,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         if (userData && userData.id) {
             try {
-                const response = await fetch('http://localhost:8080/API/Meri_Maa/api.php/users', {
+                const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -1331,7 +1333,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             // If no user data in localStorage, try to fetch from API with default user_id
             try {
-                const response = await fetch('http://localhost:8080/API/Meri_Maa/api.php/users', {
+                const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -1416,7 +1418,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const userId = JSON.parse(localStorage.getItem('user'))?.id || 1;
 
         try {
-            const response = await fetch('http://localhost:8080/API/Meri_Maa/api.php/update-user', {
+            const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/update-user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1563,7 +1565,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Function to fetch user likes
     async function fetchUserLikes(userId) {
         try {
-            const response = await fetch('http://localhost:8080/API/Meri_Maa/api.php/get-user-likes', {
+            const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/get-user-likes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
