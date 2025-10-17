@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meri Maa</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <!-- Suppress favicon error -->
+    <script>
+        window.addEventListener('error', function(e) {
+            if (e.target.href && e.target.href.indexOf('favicon.ico') !== -1) {
+                e.preventDefault();
+            }
+        }, true);
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script type="module" src="authService.js"></script>
+    <script type="module" src="auth.js"></script>
+</head>
+<body>
+    <div class="instagram-wrapper">
+        <!-- Left Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <h1 style="font-family: 'Dancing Script', cursive; color: #FF8B9A; font-size: 32px; margin: 0; padding: 10px;">Meri Maa</h1>
+            </div>
+            <div class="nav-items">
+                <a href="#" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </a>
+                <!-- <a href="#" class="nav-item">
+                    <i class="far fa-compass"></i>
+                    <span>Explore</span>
+                </a> -->
+                <!-- <a href="#" class="nav-item">
+                    <i class="fas fa-film"></i>
+                    <span>Reels</span>
+                </a> -->
+                <!-- <a href="#" class="nav-item">
+                    <i class="far fa-paper-plane"></i>
+                    <span>Messages</span>
+                    <span class="message-count">7</span>
+                </a> -->
+                <a href="#" class="nav-item">
+                    <i class="far fa-heart"></i>
+                    <span>Likes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="far fa-square-plus"></i>
+                    <span>Create</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Profile" class="profile-pic">
+                    <span>Profile</span>
+                </a>
+            </div>
+            <div class="more-options">
+                <a href="#" class="nav-item" id="moreBtn">
+                    <i class="fas fa-bars"></i>
+                    <span>More</span>
+                </a>
+                <div class="more-dropdown" style="display: none;">
+                    <a href="#" class="nav-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+  <!-- Feed Grid -->
+  <div class="feed-grid">
+    <!-- image Post Card 1 -->
+    <article class="post-card">
+      <header class="post-header">
+        <div class="user-info">
+          <div class="user-avatar">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSebeE4AmOomclsz-auFUjB5bcirZPaCIFmWA&s" alt="Amrit Chandra">
+          </div>
+          <div class="user-details">
+            <strong class="username">Amrit_chandra</strong>
+            <span class="location">Puri, Odisha</span>
+          </div>
+        </div>
+      </header>
+      <div class="post-media">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7fakx18X7JOJmM5cX65_b7Rj8GFeN2MG9tQ&s" alt="A beautiful moment of motherly love" class="post-image">
+      </div>
+      
+      <footer class="post-footer">
+        <div class="interaction-stats">
+          <button class="like-btn"><i class="far fa-heart"></i></button>
+          <button class="comment-btn"><i class="far fa-comment"></i></button>
+          <button class="share-btn"><i class="fas fa-share"></i></button>
+        </div>
+         <div class="post-date">2 HOURS AGO</div>
+        <div class="post-description">
+          <p class="description-text">
+            <span class="username">Amrit_chandra</span>
+            A beautiful moment captured between a mother and child. The pure love and affection visible in their eyes tells a story that words cannot express. These precious moments remind us of the unconditional bond between a mother and her child.
+          </p>
+          <button class="show-more-btn">more</button>
+        </div>
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <button class="view-comments-btn">View all comments</button>
+          <div class="comments-list" style="display: none;">
+            <!-- Existing comments -->
+            <div class="comment-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSebeE4AmOomclsz-auFUjB5bcirZPaCIFmWA&s" alt="User" class="comment-avatar">
+              <div class="comment-content">
+                <span class="comment-username">miss_simaa_006</span>
+                <p class="comment-text">Such a beautiful moment! 💕</p>
+                <div class="comment-actions">
+                  <span class="comment-time">2h</span>
+                  <button class="comment-like-btn">Like</button>
+                  <button class="comment-reply-btn">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Add comment input -->
+          <div class="add-comment">
+            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Your Profile" class="comment-avatar">
+            <div class="comment-input-wrapper">
+              <input type="text" class="comment-input" placeholder="Add a comment...">
+              <button class="post-comment-btn" disabled>Post</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+    <!-- story Post Card 2 -->
+    <article class="post-card">
+      <header class="post-header">
+        <div class="user-info">
+          <div class="user-avatar">
+            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Amrit Chandra">
+          </div>
+          <div class="user-details">
+            <strong class="username">Amrit_chandra</strong>
+            <span class="location">Puri, Odisha</span>
+          </div>
+        </div>
+      </header>
+      <div class="post-media story-content">
+        <div class="story-decoration"></div>
+        <div class="story-wrapper">
+          <h2 class="story-content-header">Mother's Love</h2>
+          <p>A mother's love is the foundation of every child's life. It's the gentle touch that heals, the warm embrace that comforts, and the guiding light that shows the way. Through every milestone and every challenge, a mother's unwavering support makes all the difference.</p>
+        </div>
+      </div>
+      <footer class="post-footer">
+        <div class="interaction-stats">
+          <button class="like-btn"><i class="far fa-heart"></i></button>
+          <button class="comment-btn"><i class="far fa-comment"></i></button>
+          <button class="share-btn"><i class="fas fa-share"></i></button>
+        </div>
+         <div class="post-date">2 HOURS AGO</div>
+        <div class="post-description">
+          <p class="description-text">
+            <span class="username">Amrit_chandra</span>
+            A beautiful moment captured between a mother and child. The pure love and affection visible in their eyes tells a story that words cannot express. These precious moments remind us of the unconditional bond between a mother and her child.
+          </p>
+          <button class="show-more-btn">more</button>
+        </div>
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <button class="view-comments-btn">View all comments</button>
+          <div class="comments-list" style="display: none;">
+            <!-- Existing comments -->
+            <div class="comment-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSebeE4AmOomclsz-auFUjB5bcirZPaCIFmWA&s" alt="User" class="comment-avatar">
+              <div class="comment-content">
+                <span class="comment-username">miss_simaa_006</span>
+                <p class="comment-text">Such a beautiful moment! 💕</p>
+                <div class="comment-actions">
+                  <span class="comment-time">2h</span>
+                  <button class="comment-like-btn">Like</button>
+                  <button class="comment-reply-btn">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Add comment input -->
+          <div class="add-comment">
+            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Your Profile" class="comment-avatar">
+            <div class="comment-input-wrapper">
+              <input type="text" class="comment-input" placeholder="Add a comment...">
+              <button class="post-comment-btn" disabled>Post</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+    <!-- Post Card 3 -->
+    <!-- image Post Card 1 -->
+    <article class="post-card">
+      <header class="post-header">
+        <div class="user-info">
+          <div class="user-avatar">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSebeE4AmOomclsz-auFUjB5bcirZPaCIFmWA&s" alt="Amrit Chandra">
+          </div>
+          <div class="user-details">
+            <strong class="username">Amrit_chandra</strong>
+            <span class="location">Puri, Odisha</span>
+          </div>
+        </div>
+      </header>
+      <div class="post-media">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7fakx18X7JOJmM5cX65_b7Rj8GFeN2MG9tQ&s" alt="A beautiful moment of motherly love" class="post-image">
+      </div>
+      <footer class="post-footer">
+        <div class="interaction-stats">
+          <button class="like-btn"><i class="far fa-heart"></i></button>
+          <button class="comment-btn"><i class="far fa-comment"></i></button>
+          <button class="share-btn"><i class="fas fa-share"></i></button>
+        </div>
+         <div class="post-date">2 HOURS AGO</div>
+        <div class="post-description">
+          <p class="description-text">
+            <span class="username">Amrit_chandra</span>
+            A beautiful moment captured between a mother and child. The pure love and affection visible in their eyes tells a story that words cannot express. These precious moments remind us of the unconditional bond between a mother and her child.
+          </p>
+          <button class="show-more-btn">more</button>
+        </div>
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <button class="view-comments-btn">View all comments</button>
+          <div class="comments-list" style="display: none;">
+            <!-- Existing comments -->
+            <div class="comment-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSebeE4AmOomclsz-auFUjB5bcirZPaCIFmWA&s" alt="User" class="comment-avatar">
+              <div class="comment-content">
+                <span class="comment-username">miss_simaa_006</span>
+                <p class="comment-text">Such a beautiful moment! 💕</p>
+                <div class="comment-actions">
+                  <span class="comment-time">2h</span>
+                  <button class="comment-like-btn">Like</button>
+                  <button class="comment-reply-btn">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Add comment input -->
+          <div class="add-comment">
+            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Your Profile" class="comment-avatar">
+            <div class="comment-input-wrapper">
+              <input type="text" class="comment-input" placeholder="Add a comment...">
+              <button class="post-comment-btn" disabled>Post</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+    <article class="post-card">
+      <header class="post-header">
+        <div class="user-info">
+          <div class="user-avatar">
+            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Amrit Chandra">
+          </div>
+          <div class="user-details">
+            <strong class="username">Amrit_chandra</strong>
+            <span class="location">Puri, Odisha</span>
+          </div>
+        </div>
+      </header>
+      <div class="post-media story-content">
+        <div class="story-decoration"></div>
+        <div class="story-wrapper">
+          <h2 class="story-content-header">Heartfelt Mother’s Day</h2>
+          <p>Raising me wasn’t easy—thanks for not selling me to the circus! Happy Mother’s Day!</p>
+        </div>
+      </div>
+      <footer class="post-footer">
+        <div class="interaction-stats">
+          <button class="like-btn"><i class="far fa-heart"></i></button>
+          <button class="comment-btn"><i class="far fa-comment"></i></button>
+          <button class="share-btn"><i class="fas fa-share"></i></button>
+        </div>
+         <div class="post-date">2 HOURS AGO</div>
+        <div class="post-description">
+          <p class="description-text">
+            <span class="username">Amrit_chandra</span>
+            A beautiful moment captured between a mother and child. The pure love and affection visible in their eyes tells a story that words cannot express. These precious moments remind us of the unconditional bond between a mother and her child.
+          </p>
+          <button class="show-more-btn">more</button>
+        </div>
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <button class="view-comments-btn">View all comments</button>
+          <div class="comments-list" style="display: none;">
+            <!-- Existing comments -->
+            <div class="comment-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSebeE4AmOomclsz-auFUjB5bcirZPaCIFmWA&s" alt="User" class="comment-avatar">
+              <div class="comment-content">
+                <span class="comment-username">miss_simaa_006</span>
+                <p class="comment-text">Such a beautiful moment! 💕</p>
+                <div class="comment-actions">
+                  <span class="comment-time">2h</span>
+                  <button class="comment-like-btn">Like</button>
+                  <button class="comment-reply-btn">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Add comment input -->
+          <div class="add-comment">
+            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Your Profile" class="comment-avatar">
+            <div class="comment-input-wrapper">
+              <input type="text" class="comment-input" placeholder="Add a comment...">
+              <button class="post-comment-btn" disabled>Post</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+    <!-- Audio Post Card 4 -->
+    <article class="post-card">
+      <header class="post-header">
+        <div class="user-info">
+          <div class="user-avatar">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2ugsuos5fM66EEEl3_KTGWifXSZVZDmBAGQ&s" alt="Amrit Chandra">
+          </div>
+          <div class="user-details">
+            <strong class="username">Amrit_chandra</strong>
+            <span class="location">Puri, Odisha</span>
+          </div>
+        </div>
+      </header>
+      <div class="post-media audio-player">
+        <div class="audio-background"></div>
+        <div class="audio-content">
+          <div class="audio-info">
+            <h3>Mother's Day Special</h3>
+            <p>A heartfelt message from mom</p>
+          </div>
+          <div class="audio-controls">
+            <audio id="mother-message" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+              Your browser does not support the audio element.
+            </audio>
+            <div class="play-pause-btn">
+              <i class="fas fa-play"></i>
+            </div>
+            <div class="progress-area">
+              <div class="progress-bar">
+                <div class="progress"></div>
+              </div>
+              <div class="time-counter">
+                <span class="current">0:00</span>
+                <span class="duration">0:00</span>
+              </div>
+            </div>
+            <div class="volume-container">
+              <i class="fas fa-volume-up"></i>
+              <input type="range" min="0" max="100" value="100" class="volume-slider">
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="post-footer">
+        <div class="interaction-stats">
+          <button class="like-btn"><i class="far fa-heart"></i></button>
+          <button class="comment-btn"><i class="far fa-comment"></i></button>
+          <button class="share-btn"><i class="fas fa-share"></i></button>
+        </div>
+         <div class="post-date">2 HOURS AGO</div>
+        <div class="post-description">
+          <p class="description-text">
+            <span class="username">Amrit_chandra</span>
+            A beautiful moment captured between a mother and child. The pure love and affection visible in their eyes tells a story that words cannot express. These precious moments remind us of the unconditional bond between a mother and her child.
+          </p>
+          <button class="show-more-btn">more</button>
+        </div>
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <button class="view-comments-btn">View all comments</button>
+          <div class="comments-list" style="display: none;">
+            <!-- Existing comments -->
+            <div class="comment-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSebeE4AmOomclsz-auFUjB5bcirZPaCIFmWA&s" alt="User" class="comment-avatar">
+              <div class="comment-content">
+                <span class="comment-username">miss_simaa_006</span>
+                <p class="comment-text">Such a beautiful moment! 💕</p>
+                <div class="comment-actions">
+                  <span class="comment-time">2h</span>
+                  <button class="comment-like-btn">Like</button>
+                  <button class="comment-reply-btn">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Add comment input -->
+          <div class="add-comment">
+            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Your Profile" class="comment-avatar">
+            <div class="comment-input-wrapper">
+              <input type="text" class="comment-input" placeholder="Add a comment...">
+              <button class="post-comment-btn" disabled>Post</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+<article class="post-card">
+      <header class="post-header">
+        <div class="user-info">
+          <div class="user-avatar">
+            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Amrit Chandra">
+          </div>
+          <div class="user-details">
+            <strong class="username">Amrit_chandra</strong>
+            <span class="location">Puri, Odisha</span>
+          </div>
+        </div>
+      </header>
+      <div class="post-media story-content">
+        <div class="story-decoration"></div>
+        <div class="story-wrapper">
+          <h2 class="story-content-header">Heartfelt Mother’s Day</h2>
+          <p>Mother’s Day is more than a date on the calendar—it’s a heartfelt celebration of the woman who gave you life, love, and unwavering support. Whether it’s your mum, grandma, mother-in-law, or a mother figure who has made a difference in your life, taking the time to express your gratitude can mean the world.</p>
+
+          <p>
+
+While gifts are wonderful (and always appreciated!), the right words can touch the heart like nothing else. In this blog, we’ve rounded up 75 thoughtful Happy Mother’s Day quotes, wishes and messages that you can share in cards, texts, or gift tags. We’ve also grouped them by category to help you find just the right sentiment for every kind of mum.</p>
+        </div>
+      </div>
+      <footer class="post-footer">
+        <div class="interaction-stats">
+          <button class="like-btn"><i class="far fa-heart"></i></button>
+          <button class="comment-btn"><i class="far fa-comment"></i></button>
+          <button class="share-btn"><i class="fas fa-share"></i></button>
+        </div>
+         <div class="post-date">2 HOURS AGO</div>
+        <div class="post-description">
+          <p class="description-text">
+            <span class="username">Amrit_chandra</span>
+            A beautiful moment captured between a mother and child. The pure love and affection visible in their eyes tells a story that words cannot express. These precious moments remind us of the unconditional bond between a mother and her child.
+          </p>
+          <button class="show-more-btn">more</button>
+        </div>
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <button class="view-comments-btn">View all comments</button>
+          <div class="comments-list" style="display: none;">
+            <!-- Existing comments -->
+            <div class="comment-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSebeE4AmOomclsz-auFUjB5bcirZPaCIFmWA&s" alt="User" class="comment-avatar">
+              <div class="comment-content">
+                <span class="comment-username">miss_simaa_006</span>
+                <p class="comment-text">Such a beautiful moment! 💕</p>
+                <div class="comment-actions">
+                  <span class="comment-time">2h</span>
+                  <button class="comment-like-btn">Like</button>
+                  <button class="comment-reply-btn">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Add comment input -->
+          <div class="add-comment">
+            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Your Profile" class="comment-avatar">
+            <div class="comment-input-wrapper">
+              <input type="text" class="comment-input" placeholder="Add a comment...">
+              <button class="post-comment-btn" disabled>Post</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </article>
+  </div>
+</main>
+    </section>
+
+    <!-- Search Popup -->
+    <div class="search-popup" id="searchPopup">
+        <div class="popup-content">
+            <div class="search-header">
+                <h2>Search</h2>
+                <button class="close-search"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="search-input-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search..." class="search-input">
+            </div>
+            <div class="recent-searches">
+                <div class="recent-header">
+                    <h3>Recent</h3>
+                    <button class="clear-all">Clear All</button>
+                </div>
+                <div class="search-results">
+                    <!-- Recent Search Item -->
+                    <div class="search-item">
+                        <div class="user-info">
+                            <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="User">
+                            <div class="user-details">
+                                <strong class="username">miss_simaa_006</strong>
+                                <span class="full-name">🎀🌺❤️ Sumitra Mohanty❤️👰 🌺</span>
+                            </div>
+                        </div>
+                        <button class="remove-search"><i class="fas fa-times"></i></button>
+                    </div>
+                    <!-- More Recent Search Items -->
+                    <div class="search-item">
+                        <div class="user-info">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSebeE4AmOomclsz-auFUjB5bcirZPaCIFmWA&s" alt="User">
+                            <div class="user-details">
+                                <strong class="username">miss_sumitra_03</strong>
+                                <span class="full-name">Sumitra Das • Following</span>
+                            </div>
+                        </div>
+                        <button class="remove-search"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="search-item">
+                        <div class="user-info">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2ugsuos5fM66EEEl3_KTGWifXSZVZDmBAGQ&s" alt="User">
+                            <div class="user-details">
+                                <strong class="username">s_sangita2367</strong>
+                                <span class="full-name">🦋Sangita singh🦋</span>
+                            </div>
+                        </div>
+                        <button class="remove-search"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div class="profile-page" id="profilePage">
+        <div class="profile-header">
+            <div class="profile-info">
+                <div class="profile-photo">
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile Photo">
+                </div>
+                <div class="profile-details">
+                    <div class="profile-header-row">
+                        <h2 class="profile-username" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: 700; ">acbs_sonu22</h2>
+                        <!-- <button class="edit-profile-btn">Edit profile</button> -->
+                        <!-- <button class="settings-btn"><i class="fas fa-cog"></i></button> -->
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-item"><span class="stat-number">195</span> posts</div>
+                        <div class="stat-item"><span class="stat-number">247</span> Likes</div>
+                        <div class="stat-item"><span class="stat-number">792</span> Comments</div>
+                    </div>
+                    <div class="profile-bio">
+                        <div class="profile-name" style="font-family: 'Times New Roman', Times, serif; ">ACBS MOHANTY SONU❤️</div>
+                        <div class="profile-address">
+                        </div>
+                    </div>
+                    <div class="profile-bio">
+                        <p class="bio-text"></p>
+                        <button class="edit-profile-btn">Edit Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-nav">
+            <button class="nav-btn active" data-tab="posts">
+                <i class="fas fa-th"></i> Posts
+            </button>
+            <button class="nav-btn" data-tab="messages">
+                <i class="fas fa-comment"></i> Messages
+            </button>
+            <button class="nav-btn" data-tab="audio">
+                <i class="fas fa-microphone"></i> Audio
+            </button>
+        </div>
+
+        
+
+        <div class="profile-content">
+            <div class="posts-grid">
+                <!-- Grid of posts will go here -->
+                <div class="post-item">
+                    <div class="post-preview" style="background-color: #f0f0f0; height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-image" style="font-size: 48px; color: #999;"></i>
+                    </div>
+                    <div class="post-overlay">
+                        <div class="overlay-stats">
+                            <span><i class="fas fa-heart"></i> 123</span>
+                            <span><i class="fas fa-comment"></i> 45</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- More post items -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Popup -->
+    <div class="notifications-popup" id="notificationsPopup">
+        <div class="popup-content">
+            <div class="notifications-header">
+                <h2>Likes</h2>
+            </div>
+            <div class="notifications-tabs">
+                <button class="tab-btn active" data-tab="this-week">This week</button>
+                <button class="tab-btn" data-tab="this-month">This month</button>
+            </div>
+            <div class="notifications-content">
+                <div class="tab-content active" id="this-week">
+                    <!-- This Week Notifications -->
+                    <div class="notification-item">
+                        <div class="notification-avatar">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User">
+                        </div>
+                        <div class="notification-details">
+                            <p><strong>chu51777, college_boy_999x</strong> and <strong>100 others</strong> liked your reel.</p>
+                            <span class="notification-time">3d</span>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User">
+                        </div>
+                        <div class="notification-details">
+                            <p><strong>chu51777, mr_m_a_n_a_s</strong> and <strong>53 others</strong> liked your reel.</p>
+                            <span class="notification-time">3d</span>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User">
+                        </div>
+                        <div class="notification-details">
+                            <p><strong>chu51777, im_puja_02</strong> and <strong>54 others</strong> liked your reel.</p>
+                            <span class="notification-time">3d</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="this-month">
+                    <!-- This Month Notifications -->
+                    <div class="notification-item">
+                        <div class="notification-avatar">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User">
+                        </div>
+                        <div class="notification-details">
+                            <p><strong>swag__queen__priya</strong> started following you.</p>
+                            <span class="notification-time">05 Oct</span>
+                        </div>
+                        <button class="follow-btn">Follow</button>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User">
+                        </div>
+                        <div class="notification-details">
+                            <p><strong>im_puja_02, mr_m_a_n_a_s</strong> and <strong>36 others</strong> liked your post.</p>
+                            <span class="notification-time">05 Oct</span>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="User">
+                        </div>
+                        <div class="notification-details">
+                            <p><strong>im_puja_02, sanjukt9564</strong> and <strong>31 others</strong> liked your post.</p>
+                            <span class="notification-time">05 Oct</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Popup -->
+    <div class="edit-profile-popup" id="editProfilePopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>Edit Profile</h2>
+                <button class="close-popup"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="edit-profile-form">
+                <div class="profile-image-edit">
+                    <div class="current-profile-image">
+                        <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Current Profile Photo">
+                    </div>
+                    <button class="change-profile-photo">Change Profile Photo</button>
+                </div>
+                <div class="form-group">
+                    <label for="profileName">Name</label>
+                    <input type="text" id="profileName" value="ACBS MOHANTY SONU" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label for="profileBio">Bio</label>
+                    <textarea id="profileBio" placeholder="Write your bio here..." maxlength="150" rows="4">WELCOME😎MR👔</textarea>
+                    <div class="bio-counter"><span id="bioLength">0</span>/150</div>
+                </div>
+                <button class="save-profile-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Post Popup -->
+    <div class="create-popup" id="createPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>Create New</h2>
+                <!-- <button class="close-popup"><i class="fas fa-times"></i></button> -->
+            </div>
+            <div class="user-info-bar">
+                <img src="https://c8.alamy.com/comp/2HD94X6/happy-black-mom-taking-selfie-with-her-adorable-infant-baby-at-home-2HD94X6.jpg" alt="Profile" class="user-pic">
+                <span class="username">Amrit_chandra</span>
+            </div>
+            <div class="create-tabs">
+                <button class="tab-btn active" data-tab="post">Create Post</button>
+                <button class="tab-btn" data-tab="message">Message</button>
+                <button class="tab-btn" data-tab="audio">Create Audio</button>
+            </div>
+
+            <!-- Create Post Tab -->
+            <div class="tab-content active" id="postTab">
+                <div class="media-upload">
+                    <div class="upload-area">
+                        <i class="fas fa-image"></i>
+                        <p>Drag photos and videos here</p>
+                        <button class="select-media-btn">Select from computer</button>
+                        <input type="file" id="mediaInput" accept="image/*,video/*" multiple hidden>
+                    </div>
+                    <div class="selected-media-preview" style="display: none;">
+                        <img src="" alt="Preview" id="mediaPreview">
+                    </div>
+                </div>
+                <div class="post-details">
+                    <div class="location-input">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="Add location">
+                    </div>
+                    <textarea placeholder="Write a caption..." class="caption-input"></textarea>
+                    <button class="share-post-btn">Post</button>
+                </div>
+            </div>
+
+            <!-- Message Tab -->
+            <div class="tab-content" id="messageTab">
+                <div class="message-compose">
+                    <div class="message-form">
+                      <div class="location-input">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="Add location">
+                    </div>
+                        <input type="text" placeholder="Enter title..." class="message-title">
+                        <input type="text" placeholder="Enter message..." class="message-subject">
+                        <textarea placeholder="Write your description..." class="message-description"></textarea>
+                    </div>
+                    <div class="message-options">
+                        <button class="send-message-btn">Post</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create Audio Tab -->
+            <div class="tab-content" id="audioTab">
+                <div class="audio-upload">
+                    <div class="upload-area">
+                        <i class="fas fa-microphone"></i>
+                        <p>Record or upload audio</p>
+                        <button class="record-audio-btn">Record Audio</button>
+                        <button class="select-audio-btn">Upload Audio</button>
+                        <input type="file" id="audioInput" accept="audio/*" hidden>
+                    </div>
+                    <div class="audio-controls" style="display: none;">
+                        <audio id="audioPreview" controls></audio>
+                    </div>
+                </div>
+                <div class="audio-details">
+                  <div class="location-input">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="Add location">
+                    </div>
+                    <input type="text" placeholder="Add a title" class="audio-title">
+                    <textarea placeholder="Write a description..." class="audio-description"></textarea>
+                    <button class="share-audio-btn">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
