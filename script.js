@@ -675,6 +675,48 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Call fetchAllPosts when the page loads
     fetchAllPosts();
 
+    // Function to fetch user stats
+    async function fetchUserStats(userId) {
+        try {
+            const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/get-user-total-stats', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: userId
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            if (data.status === 'success') {
+                updateProfileStats(data.data);
+            }
+            return data;
+        } catch (error) {
+            console.error('Error fetching user stats:', error);
+        }
+    }
+
+    // Function to update profile stats UI
+    function updateProfileStats(stats) {
+        const statsContainer = document.querySelector('.profile-stats');
+        if (statsContainer) {
+            const postCount = statsContainer.querySelector('.stat-item:nth-child(1) .stat-number');
+            const likesCount = statsContainer.querySelector('.stat-item:nth-child(2) .stat-number');
+            const commentsCount = statsContainer.querySelector('.stat-item:nth-child(3) .stat-number');
+
+            if (postCount) postCount.textContent = stats.total_posts || 0;
+            if (likesCount) likesCount.textContent = stats.total_likes_received || 0;
+            if (commentsCount) commentsCount.textContent = stats.total_comments_received || 0;
+        }
+    }
+
     // Function to fetch user profile data
     async function fetchUserProfile(userId) {
         try {
@@ -696,6 +738,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = await response.json();
             if (data.status === 'success') {
                 updateProfileUI(data);
+                // Fetch and update user stats after profile is loaded
+                await fetchUserStats(userId);
             }
             return data;
         } catch (error) {
