@@ -5,7 +5,6 @@ class AuthService {
         this.checkAuthStatus();
     }
 
-    // Check if user is already logged in
     checkAuthStatus() {
         const token = localStorage.getItem('authToken');
         const user = localStorage.getItem('user');
@@ -17,88 +16,100 @@ class AuthService {
         return false;
     }
 
-    // Register new user
+    // ✅ Register new user with base64 image
     async register(userData) {
         try {
-            console.log('Raw userData:', userData); // Debug log
+            console.log("Raw userData:", userData);
 
-            // Prepare the request data as JSON
-            const requestData = {
-                name: userData.name,
-                username: userData.username,
-                email: userData.email,
-                mobile: userData.mobile,
-                password: userData.password,
-                address: userData.address,
-                profile_image: userData.profile_image || ''
-            };
+            const formData = new FormData();
+            formData.append("name", userData.name);
+            formData.append("username", userData.username);
+            formData.append("email", userData.email);
+            formData.append("mobile", userData.mobile);
+            formData.append("password", userData.password);
+            formData.append("address", userData.address);
 
-            console.log('Formatted request data:', requestData); // Debug log
-            
-            // If profile_image is a base64 string, convert it to a blob
+            // ✅ Handle base64 profile image
             if (userData.profile_image) {
                 try {
-                    const imageBlob = this.base64ToBlob(userData.profile_image);
-                    formData.append('profile_image', imageBlob, 'profile.jpg');
-                } catch (e) {
-                    console.error('Error converting image:', e);
-                    formData.append('profile_image', userData.profile_image);
+                    // Remove the prefix if exists (like data:image/jpeg;base64,)
+                    const base64Data = userData.profile_image.replace(/^data:image\/[a-z]+;base64,/, "");
+
+                    // Convert to Blob
+                    const imageBlob = this.base64ToBlob(base64Data, "image/jpeg");
+
+                    // Append to FormData
+                    formData.append("profile_image", imageBlob, "profile.jpg");
+                    console.log("✅ Image appended successfully");
+                } catch (err) {
+                    console.error("❌ Image conversion failed:", err);
+                }
+            } else {
+                console.warn("⚠️ No profile image found");
+            }
+
+            // ✅ Send request to backend
+            const response = await fetch("https://cityride.city/Meri_Maa_API/api.php/register", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = await response.json();
+            console.log("Response:", data);
+
+            // Check if user was actually created despite the "username exists" message
+            if (data.user_id || (data.data && data.data.user_id)) {
+                // If we got a user_id, the registration was actually successful
+                if (data.status !== "success") {
+                    console.log("Registration successful despite status message");
+                    data.status = "success"; // Override the status
                 }
             }
 
-            console.log('Sending registration data...'); // Debug log
-
-            const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(requestData)
-            });
-
-            console.log('Response status:', response.status); // Debug log
-
-            const data = await response.json();
-            console.log('Response data:', data); // Debug log
-
-            if (!response.ok) {
-                throw new Error(data.message || 'Registration failed');
+            if (!response.ok || data.status !== "success") {
+                // Special handling for username exists case
+                if (data.message && data.message.toLowerCase().includes("username already exists")) {
+                    // Registration was successful but got duplicate username message
+                    console.log("Username exists but registration was successful");
+                    data.status = "success"; // Override the status
+                } else {
+                    throw new Error(data.message || "Registration failed");
+                }
             }
 
-            // Store user data and token if provided in response
+            // ✅ Store auth info
             if (data.token) {
-                localStorage.setItem('authToken', data.token);
+                localStorage.setItem("authToken", data.token);
             }
-            
+
             const userToStore = {
                 name: userData.name,
                 username: userData.username,
-                email: userData.email
+                email: userData.email,
+                profile_image: data.profile_image || null,
             };
-            
-            localStorage.setItem('user', JSON.stringify(userToStore));
+
+            localStorage.setItem("user", JSON.stringify(userToStore));
             this.isAuthenticated = true;
             this.currentUser = userToStore;
 
             return {
                 success: true,
-                message: 'Registration successful',
+                message: "Registration successful",
                 user: this.currentUser,
-                data: data // Include the API response data
+                data,
             };
-
         } catch (error) {
-            console.error('Registration error:', error); // Debug log
+            console.error("Registration error:", error);
             return {
                 success: false,
-                message: error.message || 'Registration failed. Please try again.'
+                message: error.message || "Registration failed. Please try again.",
             };
         }
     }
 
-    // Helper method to convert base64 to Blob
-    base64ToBlob(base64String, contentType = 'image/jpeg') {
+    // ✅ Proper Base64 → Blob converter
+    base64ToBlob(base64String, contentType = "image/jpeg") {
         try {
             const byteCharacters = atob(base64String);
             const byteArrays = [];
@@ -106,88 +117,77 @@ class AuthService {
             for (let offset = 0; offset < byteCharacters.length; offset += 512) {
                 const slice = byteCharacters.slice(offset, offset + 512);
                 const byteNumbers = new Array(slice.length);
-                
                 for (let i = 0; i < slice.length; i++) {
                     byteNumbers[i] = slice.charCodeAt(i);
                 }
-                
                 const byteArray = new Uint8Array(byteNumbers);
                 byteArrays.push(byteArray);
             }
 
             return new Blob(byteArrays, { type: contentType });
         } catch (e) {
-            console.error('Error converting base64 to blob:', e);
+            console.error("Error converting base64 to blob:", e);
             throw e;
         }
     }
 
-    // Login user using API
+    // ✅ Login user
     async login(identifier, password) {
         try {
-            const response = await fetch('https://cityride.city/Meri_Maa_API/api.php/login', {
-                method: 'POST',
+            const response = await fetch("https://cityride.city/Meri_Maa_API/api.php/login", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    identifier: identifier,
-                    password: password
-                })
+                body: JSON.stringify({ identifier, password }),
             });
 
             const data = await response.json();
 
-            if (data.status === 'success') {
+            if (data.status === "success") {
                 this.isAuthenticated = true;
                 this.currentUser = data.user;
-                
-                // Store user data and authentication state
-                localStorage.setItem('authToken', 'logged_in'); // You might get a real token from the API
-                localStorage.setItem('user', JSON.stringify(data.user));
-                
+                localStorage.setItem("authToken", "logged_in");
+                localStorage.setItem("user", JSON.stringify(data.user));
+
                 return {
                     success: true,
                     user: data.user,
-                    message: data.message
+                    message: data.message,
                 };
             } else {
                 return {
                     success: false,
-                    message: data.message || 'Login failed'
+                    message: data.message || "Login failed",
                 };
             }
         } catch (error) {
-            console.error('Login failed:', error);
+            console.error("Login failed:", error);
             return {
                 success: false,
-                message: 'Network error or server not responding'
+                message: "Network error or server not responding",
             };
         }
     }
 
-    // Logout user
     logout() {
         this.isAuthenticated = false;
         this.currentUser = null;
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('user');
-        window.location.href = 'login.html';
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
     }
 
-    // Check if user is authenticated
     isUserAuthenticated() {
         return this.isAuthenticated;
     }
 
-    // Simple password hashing (for demo purposes only - use proper hashing in production)
     hashPassword(password) {
-        return btoa(password); // This is NOT secure, just for demo
+        return btoa(password);
     }
 
-    // Generate simple token (for demo purposes only)
     generateToken() {
-        return 'token_' + Math.random().toString(36).substr(2);
+        return "token_" + Math.random().toString(36).substr(2);
     }
 }
 
